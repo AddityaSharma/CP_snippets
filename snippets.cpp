@@ -123,6 +123,64 @@ int main(){
 
 /*.................................................................................................................................................................*/
 
+// segmented sieve:
+// in range [l,r] -> tell number of primes in that range.
+// constrains : 1) 1 <= l <= r <= 1e10
+//              2) 1 <= r-l <= 1e3
+
+// step-1: store all the primes that will be responsible for marking primes in l to r, i.e all primes till sqrt(r).
+// step-2: make array of size (r-l), where 0th index will be representing (0+l)th index   
+// step-3: mark all multiples of primes stored in step-1 in the range [l,r] 
+// step-4: count elements marked with true.
+
+void sieve_of_eratosthenes(vector<int> &is_prime, int n){
+    is_prime[0] = is_prime[1] = 0;
+    for(int i = 2; i*i <= n; i++){
+        if(is_prime[i]){
+            for(int j = i*i; j <= n; j+=i){
+                is_prime[j] = 0;
+            }
+        }
+    }
+}
+
+void segmented_sieve(){
+    int n = 1e5;
+    vector<int> is_prime(n, 1);
+    sieve_of_eratosthenes(is_prime, n);
+
+    int l, r; // range - [l..r]
+    cin >> l >> r;
+
+    // collect all primes till sqrt(r).
+    vector<int> primes;
+    for(int i = 2; i*i <= r; i++){
+        primes.push_back(i);
+    }
+
+    // create dummy array of size (r-l)
+    vector<int> dummy((r-l)+1, 1);
+
+    // mark all multiples of primes:
+    for(auto pr : primes){
+        int first_multiple = (l / pr) * pr;
+        if(l % pr) first_multiple += pr; 
+        for(int j = max(first_multiple, pr*pr); j <= r; j += pr){
+            dummy[j-l] = 0;
+        }
+    }
+
+    // iterate and count primes:
+    int count = 0;
+    for(auto x : dummy){
+        if(x == 1) count++;
+    }
+
+    cout << count;
+}
+
+/*.................................................................................................................................................................*/
+
 // function to print prime factorization of a number n:
 
 // Method-1:
@@ -185,9 +243,60 @@ int main(){
 
 /*.................................................................................................................................................................*/
 
+// Bit Manipulation Tricks: 
+// check for odd : if(n & 1) n is odd. i.e (n % 2) == 1 is equivalent to n&1 == 1
+// check for even : if(!(n & 1)) n is even. (n % 2) == 0 is equivalent to n&1 == 0
+// right shift operator : >> - divide by 2
+// left shift operator : << - multiply by 2
+// pow(2,x) -> 1 << x
+
+// int : 32 bits
+// long long : 64 bits
+// most significant bit(MSB) : log2(n);
+
+// iterating over bits of a given number 'n' :
+while(n){
+    int bit = n & 1; // bits are traversed from r to l
+    n = n >> 1;
+}
+
+// checking ith bit is set or not : if(n & (1 << i) != 0) -> ith bit is set
+// set a bit at ith position : n = n | (1<<i)
+// count of set bits : __builtin_popcount(n); n -> interger
+// count of set bits : __builtin_popcountll(n); n -> long long
+
+// xor : even number of 1's is 0 -> imp way to find xor.
+// Q : for given n, find xor from 1 to n, n <= 1e18 -> imp ques.
+// observations : n % 4 == 0 -> xor = n
+//                n % 4 == 3 -> xor = 0
+//                n % 4 == 1 -> xor = 1
+//                n % 4 == 2 -> xor = n+1
+
+// Q : for a range [l...r], find xor of all numbers from l to r; 1 <= l <= r <= 1e18
+// Sol -> find xor in range [1..l-1], [1..r], then do xor(1..l-1)^xor(1..r) 
+
+// Q : max length subarray whose xor is k. (imp)
+// Sol -> thing about simething like prefix xor + hashing
+
+// Power Set: Q - 1097B (practice - codeforces)
+// Power Set is a better method to create all the subsequences of a given array or string rather than recursion.
+int n; // size of array whose power set is being constructed.
+int arr[n]; // array whose power set is being constructed
+vector<vector<int>> power_set;
+for(int num = 0; num < (i<<n); nums++){
+    vector<int> s;
+    for(int i = 0; i < n; i++){
+        if(num & (1 << i)) s.push_back(arr[i]);
+    }
+    power_set.push_back(s);
+}
+// the matrix power_set cantains all the subsequences of given array of size n.
+
+/*.................................................................................................................................................................*/
 
 
 
+/*.................................................................................................................................................................*/
 
 
 
