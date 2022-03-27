@@ -294,7 +294,107 @@ for(int num = 0; num < (i<<n); nums++){
 
 /*.................................................................................................................................................................*/
 
+// combinatorics:
 
+// permutations and combinations:
+// calculate nCr for given calue if n and r, and T testcases.
+// constraints -> 1 <= T <= 1e5
+//             -> 1 <= r <= n <= 1e5
+// for brute force the complexity will be (T*N) i.e. 1e10 operations -> TLE
+
+// optimised ideology : when we compute n!, we actually compute factorials for all the number from 1 to n-1 and then find n!.
+// so to reduce repetative calculations -> we can find factorial of n = 1e5, and in this way we have factorial of all numbers 
+// 1 to n = 1e5, and as we have stored these values calculations will have access to factorial values in O(1) and hence we have 
+// optimised the time complexity by doing pre-computation.
+
+// if we have to find nCr for just a single value of n -> use the following function:
+#define int long long // defines every int data type to long long.
+int mod = 1e9+7;
+
+// modular exponentiation: -> computing (base)^n
+int power(int base, int n){ // T.C : O(log(base))
+    int ans = 1;
+    while(n != 0){
+        if(n%2) {
+            n = n-1;
+            ans = (ans * base) % mod;
+        }else{
+            n = n/2;
+            base = (base * base) % mod;
+        }
+    }
+    return ans;
+}
+
+void pre_computation(vector<int> &fact){ // T.C : O(n)
+    fact[0] = 1;
+    for(int i = 1; i<=fact.size(); i++){
+        fact[i] = (i * fact[i-1]) % mod;
+    }
+}
+
+int nCr(int n, int r, vector<int> &fact){ // T.C : O(2 * logn).
+    return (fact[n] *(power(fact[r], mod-2) * power(fact[n-r], mod-2)) % mod) % mod;
+}
+
+//int main() -> signed main()
+signed main(){ // converted int to signed as we have declared int as long long.
+    int N = 1e5;
+    vector<int> fact(N, 0);
+    pre_computation(fact);
+
+    int n, r;
+    cin >> n >> r;
+    cout << nCr(n, r, fact); 
+    return 0;
+}
+
+                                            ------------------------------------------------------------------------
+
+// if we have multiple test cases, then pre_computating the power(fact(n)) will be benificail, hence for multiple test cases use following function:
+#define int long long // defines every int data type to long long.
+int mod = 1e9+7;
+
+// modular exponentiation: -> computing (base)^n
+int power(int base, int n){ // T.C : O(log(base))
+    int ans = 1;
+    while(n != 0){
+        if(n%2) {
+            n = n-1;
+            ans = (ans * base) % mod;
+        }else{
+            n = n/2;
+            base = (base * base) % mod;
+        }
+    }
+    return ans;
+}
+
+void pre_computation(vector<int> &fact, vector<int> &powerr){ // T.C : O(nlogn)
+    fact[0] = 1;
+    powerr[0] = 1;
+    for(int i = 1; i<=fact.size(); i++){
+        fact[i] = (i * fact[i-1]) % mod;
+        powerr[i] = power(fact[i], mod-2);
+    }
+}
+
+int nCr(int n, int r, vector<int> &fact){ // T.C : O(1).
+    return (fact[n] *(powerr[r] * powerr[n-r]) % mod) % mod;
+}
+
+// int main() -> signed main()
+signed main(){ // converted int to signed as we have declared int as long long.
+    int N = 1e5;
+    vector<int> fact(N, 0);
+    vector<int> powerr(N, 0);
+    pre_computation(fact, powerr);
+
+    int n, r;
+    cin >> n >> r;
+    cout << nCr(n, r, fact); 
+    return 0;
+}
 
 /*.................................................................................................................................................................*/
 
@@ -302,10 +402,4 @@ for(int num = 0; num < (i<<n); nums++){
 
 
 
-
-
-
-
-
-
-
+/*.................................................................................................................................................................*/
