@@ -1,3 +1,27 @@
+lList of topics covered in CP->striver course:
+1) Prefix sum -> 1D and 2D 
+2) Scanline Algorithm
+3) 2-pointer Technique / Sliding window Algorithm
+4) Binary Search
+5) Binary exponentiation -> Modular exponentiation
+6) Modular Arithmetic (Little Fermat Theorem - imp)
+7) primes
+8) sieve of eratosthenes
+9) prime factorization fo a number
+10) segmented sieve
+11) Bit Manipulation 
+12) Combinatorics -> practice and only practice
+13) recursion + backTracking
+14)
+15)
+16)
+17)
+18)
+19)
+20)
+	
+/*.................................................................................................................................................................*/
+	
 #include<bits/stdc++.h>
 using namespace std;
 
