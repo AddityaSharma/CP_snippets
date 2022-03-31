@@ -396,6 +396,23 @@ signed main(){ // converted int to signed as we have declared int as long long.
     return 0;
 }
 
+                                            ------------------------------------------------------------------------
+
+// Questions for practice:
+// Q : different ways to represent N as a sum of k non-zero numbers.
+// example testcase : n = 5 and k = 3 
+// -> 3,1,1
+// -> 1,3,1
+// -> 1,1,3
+// -> 2,2,1
+// -> 2,1,2
+// -> 1,1,2
+// Sol : nCr ; here n->(n-1) & r->(k-1).
+
+// Q : grid unique paths - Leetcode : can be done using combinatorics
+
+// Q : k-special cell -> hackerearth (imp)
+
 /*.................................................................................................................................................................*/
 
 
