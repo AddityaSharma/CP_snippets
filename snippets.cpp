@@ -13,7 +13,7 @@ List of topics covered in CP->striver course:
 11) Bit Manipulation 
 12) Combinatorics -> practice and only practice
 13) recursion + backTracking
-14)
+14) Divide and Conquer
 15)
 16)
 17)
@@ -441,8 +441,62 @@ signed main(){ // converted int to signed as we have declared int as long long.
 
 /*.................................................................................................................................................................*/
 
+// Divide and Conquer Technique:
 
+// -> Merge Sort:
+void merge(int low, int mid, int high, int arr[]){
+    vector<int> temp;
+    int left = low, right = mid+1;
 
+    while(left <= mid && right <= high){
+        if(arr[left] <= arr[right]){
+            temp.push_back(arr[left]);
+            left++;
+        }else{
+            temp.push_back(arr[right]);
+            right++;
+        }
+    }
 
+    // if left exceeds, copy entire right in temp.
+    while(right <= high) temp.push_back(arr[right++]); 
+
+    // if right exceeds, copy entire left in temp.
+    while(left <= mid) temp.push_back(arr[left++]);
+
+    // placing the final sorted array(temp) back in the origional array(arr)
+    for(int i = low; i<=high; i++){
+        arr[i] = temp[i-low]; // we want to place temp[0] in arr[low], hence the formula arr[i] = temp[i-low]
+    }    
+
+    return;
+}
+
+void mergesort(int low, int high, int arr[]){
+    if(low < high){
+        int mid = low+(high-low)/2;
+        mergesort(low, mid, arr);
+        mergesort(mid+1, high, arr);
+        merge(low, mid, high, arr);
+    }
+    return;
+}
+
+int main(){
+    int n;
+    cin >> n;
+    int arr[n];
+    for(int i=0; i<n; i++) cin >> arr[i];
+
+    mergesort(0, n-1, arr);
+    
+    for(int i=0; i<n; i++) cout << arr[i] << " ";
+
+    return 0;
+}
+
+// question based on divide and conqeur:
+// Q : inversion count -> gfg
+// Q : reverse pairs -> leetcode
 
 /*.................................................................................................................................................................*/
