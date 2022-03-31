@@ -1,4 +1,5 @@
-lList of topics covered in CP->striver course:
+/*
+List of topics covered in CP->striver course:
 1) Prefix sum -> 1D and 2D 
 2) Scanline Algorithm
 3) 2-pointer Technique / Sliding window Algorithm
@@ -19,7 +20,8 @@ lList of topics covered in CP->striver course:
 18)
 19)
 20)
-	
+*/
+
 /*.................................................................................................................................................................*/
 	
 #include<bits/stdc++.h>
