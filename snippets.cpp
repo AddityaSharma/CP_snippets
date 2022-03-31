@@ -297,7 +297,7 @@ for(int num = 0; num < (1<<n); nums++){
 // combinatorics:
 
 // permutations and combinations:
-// calculate nCr for given calue if n and r, and T testcases.
+// calculate nCr for a given value of n and r, and for T testcases.
 // constraints -> 1 <= T <= 1e5
 //             -> 1 <= r <= n <= 1e5
 // for brute force the complexity will be (T*N) i.e. 1e10 operations -> TLE
@@ -334,7 +334,7 @@ void pre_computation(vector<int> &fact){ // T.C : O(n)
 }
 
 int nCr(int n, int r, vector<int> &fact){ // T.C : O(2 * logn).
-    return (fact[n] *(power(fact[r], mod-2) * power(fact[n-r], mod-2)) % mod) % mod;
+    return (fact[n] * (power(fact[r], mod-2) * power(fact[n-r], mod-2)) % mod) % mod;
 }
 
 //int main() -> signed main()
