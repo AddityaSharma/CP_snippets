@@ -283,7 +283,7 @@ while(n){
 int n; // size of array whose power set is being constructed.
 int arr[n]; // array whose power set is being constructed
 vector<vector<int>> power_set;
-for(int num = 0; num < (i<<n); nums++){
+for(int num = 0; num < (1<<n); nums++){
     vector<int> s;
     for(int i = 0; i < n; i++){
         if(num & (1 << i)) s.push_back(arr[i]);
