@@ -14,7 +14,7 @@ List of topics covered in CP->striver course:
 12) Combinatorics -> practice and only practice
 13) recursion + backTracking
 14) Divide and Conquer
-15)
+15) Matrix Exponentiation -> finding ith fibonacci number in O(logn) time complexity. 
 16)
 17)
 18)
@@ -498,5 +498,188 @@ int main(){
 // question based on divide and conqeur:
 // Q : inversion count -> gfg
 // Q : reverse pairs -> leetcode
+
+/*.................................................................................................................................................................*/
+// matrix exponentiation:
+vector<vector<int>> matrixExponentiation(vector<vector<int>> &base ,int n){ // (base) ^ n -> base is a matrix
+    int m = base.size();
+    
+    // declare a unit matrix -> ans[][] of dimentions same as base
+    vector<vector<int>> ans(m, vector<int>(m, 0));
+    for(int i = 0; i < m; i++){
+        ans[0][0] = 1;
+    }
+
+    while(n){
+        if(n % 2){
+            // ans = ans * base;
+            vector<vector<int>> temp(m, vector<int>(m, 0));
+            for (int i = 0; i < m; i++){
+                for (int j = 0; j < m; j++){
+                    for (int k = 0; k < m; k++) temp[i][j] += ans[i][k] * base[k][j];
+                }
+            }
+            ans = temp;
+            n = n-1; // reduce power by 1.
+        }else{
+            // base = base * base;
+            vector<vector<int>> temp(m, vector<int>(m, 0));
+            for (int i = 0; i < m; i++){
+                for (int j = 0; j < m; j++){
+                    for (int k = 0; k < m; k++) temp[i][j] += base[i][k] * base[k][j];
+                }
+            }
+            base = temp;
+            n = n/2;
+        }
+    }
+    return ans;
+}
+
+int main(){
+    // declare matrix -> base[][] and take input of values.
+    int m; // size of base matrix;
+    cin >> m;
+    
+    vector<vector<int>> base(m, vector<int>(m, 0));
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < m; j++) cin >> base[i][j];
+    }
+    
+    int n; // power to which we have to exponentiate -> (base) ^ n
+    cin >> n;
+    vector<vector<int>> ans = matrixExponentiation(base, n); // matrix ans cantains the exponentiated matrix.
+    return 0;
+}
+
+                                            ------------------------------------------------------------------------
+
+// Matrix Exponentiation => help us to find a fibonacci number in O(logn) time.
+
+// fibonacci numbers : 0, 1, 1, 2, 3, 5, 8, 13, 21
+// sum till ith no.  : 0, 1, 2, 4, 7, 12, 20 .. 
+// obersevation : sum[i] = fib[i+2] - 1 -> sum[i] represents sum of first i fibonacci numbers.
+// now if we know how to find ith fibonacci number in 0(logn) then we can find the sum also in O(logn) time complexity.
+
+// finding fibonacci number in O(logn) time complexity:
+// formula : [[fibo(n)], [fibo(n-1)]] = ([[1,1][1,0]]) ^ (n-1) * [[1], [0]]
+// let value of ([[1,1][1,0]]) ^ (n-1) be [[x, y], [w, z]]
+// => ([[x, y], [w, z]]) * ([[1], [0]])
+// => fibo(n) = x // final result!!
+
+// finding value of ([[1,1][1,0]]) ^ (n-1)
+// we will just modify the power(base, n) function -> considering base as a 2*2 matrix, and consider ans to be initially a unit matrix of size 2*2.
+
+// zero-based indexing.
+int fibo(vector<vector<int>> &base ,int n){ // (base) ^ n -> base is a matrix
+    n = n-1;
+    int m = base.size();
+    
+    // declare a unit matrix -> ans[][] of dimentions same as base
+    vector<vector<int>> ans(m, vector<int>(m, 0));
+    for(int i = 0; i < m; i++){
+        ans[0][0] = 1;
+    }
+
+    while(n){
+        if(n % 2){
+            // ans = ans * base;
+            vector<vector<int>> temp(m, vector<int>(m, 0));
+            for (int i = 0; i < m; i++){
+                for (int j = 0; j < m; j++){
+                    for (int k = 0; k < m; k++) temp[i][j] += ans[i][k] * base[k][j];
+                }
+            }
+            ans = temp;
+            n = n-1; // reduce power by 1.
+        }else{
+            // base = base * base;
+            vector<vector<int>> temp(m, vector<int>(m, 0));
+            for (int i = 0; i < m; i++){
+                for (int j = 0; j < m; j++){
+                    for (int k = 0; k < m; k++) temp[i][j] += base[i][k] * base[k][j];
+                }
+            }
+            base = temp;
+            n = n/2;
+        }
+    }
+    
+    return ans[0][0];
+}
+
+int main(){
+    // declare matrix -> base[2][2].
+    vector<vector<int>> base = {{1,1}, {1,0}};
+
+    int n; // power to which we have to exponentiate -> (base) ^ n
+    cin >> n;
+    cout << fibo(base, n) << endl;
+    return 0;
+}
+
+                                            ------------------------------------------------------------------------
+
+// sum till ith fibonacci number in O(logn) time.
+
+// fibonacii code:
+// zero-based indexing.
+int fibo(vector<vector<int>> &base ,int n){ // (base) ^ n -> base is a matrix
+    n = n-1;
+    int m = base.size();
+    
+    // declare a unit matrix -> ans[][] of dimentions same as base
+    vector<vector<int>> ans(m, vector<int>(m, 0));
+    for(int i = 0; i < m; i++){
+        ans[0][0] = 1;
+    }
+
+    while(n){
+        if(n % 2){
+            // ans = ans * base;
+            vector<vector<int>> temp(m, vector<int>(m, 0));
+            for (int i = 0; i < m; i++){
+                for (int j = 0; j < m; j++){
+                    for (int k = 0; k < m; k++) temp[i][j] += ans[i][k] * base[k][j];
+                }
+            }
+            ans = temp;
+            n = n-1; // reduce power by 1.
+        }else{
+            // base = base * base;
+            vector<vector<int>> temp(m, vector<int>(m, 0));
+            for (int i = 0; i < m; i++){
+                for (int j = 0; j < m; j++){
+                    for (int k = 0; k < m; k++) temp[i][j] += base[i][k] * base[k][j];
+                }
+            }
+            base = temp;
+            n = n/2;
+        }
+    }
+    return ans[0][0];
+}
+
+int main(){
+    // declare matrix -> base[2][2].
+    vector<vector<int>> base = {{1,1}, {1,0}};
+
+    int n; // power to which we have to exponentiate -> (base) ^ n
+    cin >> n;
+    int f = fibo(base, n+2); // fib[i+2]
+
+    // sum[i] = fib[i+2] - 1 -> sum[i] denotes sum till ith fibonacci number.
+    int sum = f - 1; 
+    cout << sum << endl;
+    return 0;
+}
+
+/*.................................................................................................................................................................*/
+
+
+
+
+
+
 
 /*.................................................................................................................................................................*/
