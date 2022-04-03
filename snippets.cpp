@@ -15,8 +15,8 @@ List of topics covered in CP->striver course:
 13) recursion + backTracking
 14) Divide and Conquer
 15) Matrix Exponentiation -> finding ith fibonacci number in O(logn) time complexity. 
-16)
-17)
+16) Meet-in-the-Middle Algorithm
+17) Greedy Algorithm
 18)
 19)
 20)
@@ -676,6 +676,49 @@ int main(){
 
 /*.................................................................................................................................................................*/
 
+// meet-in-the-middle-algorithm (MIM):
+// MIM says whatever algorithm you are applying to the complete array, apply it twice to the two halves of the array, it will reduce the complexity.
+
+// examples:
+// in both of the following examples we have to take special care about the subsequences that have same i.e repetative sum but have atleast one unique element.
+// hard level questions : 
+
+// Q : given an array of n integers, how many subsequences are there that given me a sum as S.
+// S = 10; arr[] = [1,2,8,5,3]
+// -> [2,8] 
+// -> [2,5,3]
+
+// constraints : n <= 18
+// solution -> try out all possible combinations (power set).
+// constraints : n <= 36
+// divide array into two parts of size n/2.
+// find all possible subsequence sum for the first part of array and store the sum in an array(cannot use hashset as we want duplicate sum also bcoz they corresponds 
+// to unique subsequences).
+// find all possible subsequence sum for the first part of array and store the sum in a hashmap(we want freqency of subsequence sum that occur more than once -> so 
+// we have used a hashmap)
+// pick one subsequence sum(say x) from arr and check if there is a subsequence sum of (S-x) in hashmap, if yes
+// then add its frequency in our final answer.
+
+// Q : given an array of n intergers, find all subsequences with sum <= S.
+// constraints : n <= 30
+// divide the array into two parts of size n/2.
+// find all possible subsequences sum for the first part of the array and store them in an array -> vec-1 (cannot use hashset as we want duplicate sum also bcoz 
+// they corresponds to unique subsequences)
+// find all possible subsequences sum for the second part of the array and store them in an array -> vec-2 (cannot use hashmap as we want duplicate sum also bcoz
+// they corresponds to unique subsequences)
+// now we sort vec-2 as we want to apply lower bound function (binary search) in vec-2.
+// lastly we traverse vec-1 and for every element(say x) in vec-1 we have to find the lower bound of (S-x) in vec-2 and add the number of elements that are smaller 
+// than lower bound of (S-x) in our final answer.
+// take care of repeated sum as repeated sum represent unique subsequences so we use vectors instead of hashset. 
+
+/*.................................................................................................................................................................*/
+
+// greedy algorithms:
+// Q : Even But Not Even - 1291A : codeforces
+// Q : product of three numbers - 1294C : codeforces
+// Q : array sharpening - 1291B : codeforces 
+
+/*.................................................................................................................................................................*/
 
 
 
