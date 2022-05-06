@@ -694,10 +694,9 @@ int main(){
 // divide array into two parts of size n/2.
 // find all possible subsequence sum for the first part of array and store the sum in an array(cannot use hashset as we want duplicate sum also bcoz they corresponds 
 // to unique subsequences).
-// find all possible subsequence sum for the first part of array and store the sum in a hashmap(we want freqency of subsequence sum that occur more than once -> so 
+// find all possible subsequence sum for the second part of array and store the sum in a hashmap(we want freqency of subsequence sum that occur more than once -> so 
 // we have used a hashmap)
-// pick one subsequence sum(say x) from arr and check if there is a subsequence sum of (S-x) in hashmap, if yes
-// then add its frequency in our final answer.
+// pick one subsequence sum(say x) from arr and check if there is a subsequence sum of (S-x) in hashmap, if yes then add its frequency in our final answer.
 
 // Q : given an array of n intergers, find all subsequences with sum <= S.
 // constraints : n <= 30
