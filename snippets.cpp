@@ -46,7 +46,7 @@ long long power(int base, int n){
 
 
 // modulo division: -> computing c = (b/a) % mod 
-long long power(int base, int n){
+long long power(long long base, long long n){
 	long long ans = 1;
 	while(n != 0){
 		if(n%2) {
